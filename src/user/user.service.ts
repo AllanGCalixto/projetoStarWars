@@ -24,8 +24,7 @@ export class UserService {
 
   async findOne(email: string) {
     const user = await this.userModel
-      .findOne({ email: email })
-      .select('-password');
+      .findOne({ email: email });
 
     return user;
   }
