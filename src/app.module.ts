@@ -6,6 +6,8 @@ import { Mongoose } from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { StarWarsController } from './star-wars/star-wars.controller';
+import { StarWarsModule } from './star-wars/star-wars.module';
 
 @Module({
   imports: [UserModule,
@@ -19,7 +21,8 @@ import { AuthModule } from './auth/auth.module';
     }),
 
   }),
-     AuthModule],
+     AuthModule,
+     StarWarsModule],
   controllers: [AppController],
   providers: [AppService],
 })
