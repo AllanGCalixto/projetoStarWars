@@ -3,13 +3,31 @@ services:
   mongo:
       image: mongo
       restart: always
-      networks:
+      networks: 
         - my-net
       environment:
-        MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       ports:
-        - 27017:27017
+      - 27017:27017
+api:
+  build: 
+    context: ./
+    dockerfile: dockerfile 
+  restart: always
+  networks:
+    - my-net
+  environment:
+    MONGO_STRING: ${MONGO_STRING}
+    GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+    GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+    GOOGLE_CALLBACK_URL: ${GOOGLE_CALLBACK_URL}
+    JWT_SECRET: ${JWT_SECRET}
+    STARWARS_URL: ${STARWARS_URL}
+  depends_on:
+    - mongo
+  ports:
+    - 3000:3000
 
 networks:
   my-net:
